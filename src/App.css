@@ -1,1 +1,118 @@
-:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#eef5ff;background:#0b1220}*{box-sizing:border-box}body{margin:0}.page{max-width:1000px;margin:auto;padding:60px 24px}header{text-align:center}header span{color:#68a8ff;font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:12px}h1{font-size:48px;margin:8px 0}header p{color:#9aabc1}form{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:end;max-width:720px;margin:38px auto}label{display:grid;gap:8px;font-size:14px;font-weight:700}input,form button{height:48px;border-radius:10px;border:1px solid #34435b;padding:0 14px;font:inherit}input{background:#121d30;color:#fff}form button{background:#2878e8;color:#fff;border:0;font-weight:750;padding:0 22px}.error{text-align:center;color:#ff9292}.clocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.clock{position:relative;text-align:center;padding:30px;background:linear-gradient(145deg,#17263d,#111b2d);border:1px solid #2b3b55;border-radius:20px}.clock h2{margin:0 0 18px}.time{font-size:36px;font-variant-numeric:tabular-nums}.clock small{display:block;margin-top:10px;color:#8ca0b8}.remove{position:absolute;right:10px;top:8px;border:0;background:transparent;color:#92a4ba;font-size:26px;cursor:pointer}@media(max-width:650px){form{grid-template-columns:1fr}h1{font-size:38px}}
+:root {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #eef5ff;
+  background: #0b1220;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.page {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px 24px;
+}
+header {
+  text-align: center;
+}
+header span {
+  color: #68a8ff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+}
+h1 {
+  font-size: 48px;
+  margin: 8px 0;
+}
+header p {
+  color: #9aabc1;
+}
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 14px;
+  align-items: end;
+  max-width: 720px;
+  margin: 38px auto;
+}
+label {
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+input,
+form button {
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #34435b;
+  padding: 0 14px;
+  font: inherit;
+}
+input {
+  background: #121d30;
+  color: #fff;
+}
+form button {
+  background: #2878e8;
+  color: #fff;
+  border: 0;
+  font-weight: 750;
+  padding: 0 22px;
+}
+.error {
+  text-align: center;
+  color: #ff9292;
+}
+.clocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+.clock {
+  position: relative;
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(145deg, #17263d, #111b2d);
+  border: 1px solid #2b3b55;
+  border-radius: 20px;
+}
+.clock h2 {
+  margin: 0 0 18px;
+}
+.time {
+  font-size: 36px;
+  font-variant-numeric: tabular-nums;
+}
+.clock small {
+  display: block;
+  margin-top: 10px;
+  color: #8ca0b8;
+}
+.remove {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  color: #92a4ba;
+  font-size: 26px;
+  cursor: pointer;
+}
+@media (max-width: 650px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 38px;
+  }
+}
