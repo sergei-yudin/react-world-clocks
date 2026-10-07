@@ -1,30 +1,29 @@
-import { useState, type FormEvent } from "react";
-import { WorldClock } from "./components/WorldClock";
+import { useEffect, useState } from "react";
+import { ClockForm } from "./components/ClockForm";
+import { WorldClockList } from "./components/WorldClockList";
+import type { ClockData } from "./types";
 import "./App.css";
-export type ClockData = { id: string; name: string; offset: number };
+
 export default function App() {
   const [clocks, setClocks] = useState<ClockData[]>([
     { id: "tokyo", name: "Токио", offset: 9 },
     { id: "london", name: "Лондон", offset: 0 },
   ]);
-  const [name, setName] = useState("");
-  const [offset, setOffset] = useState("");
-  const [error, setError] = useState("");
-  const add = (e: FormEvent) => {
-    e.preventDefault();
-    const zone = Number(offset.replace(",", "."));
-    if (!name.trim() || !Number.isFinite(zone) || zone < -12 || zone > 14) {
-      setError("Введите название и смещение от −12 до +14.");
-      return;
-    }
-    setClocks((items) => [
-      ...items,
-      { id: crypto.randomUUID(), name: name.trim(), offset: zone },
-    ]);
-    setName("");
-    setOffset("");
-    setError("");
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 1_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const addClock = (name: string, offset: number) => {
+    setClocks((items) => [...items, { id: crypto.randomUUID(), name, offset }]);
   };
+
+  const removeClock = (id: string) => {
+    setClocks((items) => items.filter((item) => item.id !== id));
+  };
+
   return (
     <main className="page">
       <header>
@@ -32,44 +31,8 @@ export default function App() {
         <h1>Мировые часы</h1>
         <p>Текущее время в выбранных часовых поясах</p>
       </header>
-      <form onSubmit={add}>
-        <label>
-          Название
-          <input
-            aria-label="Название"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Нью-Йорк"
-          />
-        </label>
-        <label>
-          Временная зона
-          <input
-            aria-label="Временная зона"
-            value={offset}
-            onChange={(e) => setOffset(e.target.value)}
-            placeholder="−5"
-            inputMode="decimal"
-          />
-        </label>
-        <button>Добавить</button>
-      </form>
-      {error && (
-        <p role="alert" className="error">
-          {error}
-        </p>
-      )}
-      <section className="clocks">
-        {clocks.map((clock) => (
-          <WorldClock
-            key={clock.id}
-            {...clock}
-            onRemove={() =>
-              setClocks((items) => items.filter((item) => item.id !== clock.id))
-            }
-          />
-        ))}
-      </section>
+      <ClockForm onAdd={addClock} />
+      <WorldClockList clocks={clocks} now={now} onRemove={removeClock} />
     </main>
   );
 }

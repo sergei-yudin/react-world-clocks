@@ -1,45 +1,31 @@
-import { Component } from "react";
-type Props = { name: string; offset: number; onRemove: () => void };
-type State = { now: Date };
-export class WorldClock extends Component<Props, State> {
-  private timer: number | undefined;
-  state: State = { now: new Date() };
+type Props = {
+  name: string;
+  offset: number;
+  now: Date;
+  onRemove: () => void;
+};
 
-  private updateTime = () => {
-    this.setState({ now: new Date() });
-  };
+export function WorldClock({ name, offset, now, onRemove }: Props) {
+  const utc = now.getTime() + now.getTimezoneOffset() * 60_000;
+  const time = new Date(utc + offset * 3_600_000).toLocaleTimeString("ru-RU", {
+    hour12: false,
+  });
 
-  componentDidMount() {
-    this.timer = window.setInterval(this.updateTime, 1000);
-  }
-
-  componentWillUnmount() {
-    if (this.timer !== undefined) window.clearInterval(this.timer);
-  }
-
-  render() {
-    const { name, offset, onRemove } = this.props;
-    const utc =
-      this.state.now.getTime() + this.state.now.getTimezoneOffset() * 60000;
-    const time = new Date(utc + offset * 3600000).toLocaleTimeString("ru-RU", {
-      hour12: false,
-    });
-    return (
-      <article className="clock">
-        <button
-          className="remove"
-          aria-label={`Удалить ${name}`}
-          onClick={onRemove}
-        >
-          ×
-        </button>
-        <h2>{name}</h2>
-        <div className="time">{time}</div>
-        <small>
-          UTC{offset >= 0 ? "+" : ""}
-          {offset}
-        </small>
-      </article>
-    );
-  }
+  return (
+    <article className="clock">
+      <button
+        className="remove"
+        aria-label={`Удалить ${name}`}
+        onClick={onRemove}
+      >
+        ×
+      </button>
+      <h2>{name}</h2>
+      <div className="time">{time}</div>
+      <small>
+        UTC{offset >= 0 ? "+" : ""}
+        {offset}
+      </small>
+    </article>
+  );
 }
